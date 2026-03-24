@@ -50,10 +50,30 @@ class Scanner:
 
 
 
-w = "2 + 3*(765 + 8/3) + 3*(9 - 3)# aa"
+def tokens_to_html(tokens):
+    html = '<!DOCTYPE html>\n<html lang="en">\n'
+    html += '<head>\n<meta charset="UTF-8">\n<title>Skaner</title>\n<style>\n'
+    html += ".INT { color: cyan; }\n"
+    html += ".STR { color: green; }\n"
+    html += ".PLUS, .MINUS, .ILOCZYN, .ILORAZ { color: lightgoldenrodyellow; }\n"
+    html += ".LNAWIAS, .PNAWIAS { color: orange; }\n"
+    html += ".ERROR { color: white; background-color: red; }\n"
+    html += "</style>\n</head>\n<body style='background-color: #2b2b2b;'>\n<pre>\n"
+
+    for t in tokens:
+        html += f"{' ' if t.wartosc in "+-" else ''}<span class='{t.typ}'>{t.wartosc}</span>{' ' if t.wartosc in "+-" else ''}"
+
+    html += "\n</pre>\n</body>\n</html>"
+    return html
+
+
+
+w = "2 + 3*(765 + 8/3) + 3*(9 - 3) #ab + 2 - 7()"
 scan = Scanner()
 tokens = scan.get_tokens(w)
-for t in tokens:
-    print(t)
+html = tokens_to_html(tokens)
+
+with open("output.html", "w", encoding="utf-8") as f:
+    f.write(html)
 
 
