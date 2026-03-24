@@ -71,6 +71,8 @@ def tokens_to_html(tokens):
 w = "2 + 3*(765 + 8/3) + 3*(9 - 3) #ab + 2 - 7()"
 scan = Scanner()
 tokens = scan.get_tokens(w)
+for t in tokens:
+    print(t)
 html = tokens_to_html(tokens)
 
 with open("output.html", "w", encoding="utf-8") as f:
